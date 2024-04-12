@@ -43,25 +43,25 @@ public class BookController{
 	}
 	
 	
-	@GetMapping("/books/{id}")
-	public Book bookXID(@PathVariable(name="id") Long id) {
+	@GetMapping("/books/{isbn}")
+	public Book bookXID(@PathVariable(name="isbn") Long isbn) {
 		
 		Book book_xid = new Book();
 		
-		book_xid=bookserviceimpl.BookXID(id);
+		book_xid=bookserviceimpl.BookXID(isbn);
 		
 		System.out.println("Book XID: "+book_xid);
 		
 		return book_xid;
 	}
 	
-	@PutMapping("/books/{id}")
-	public Book updateBook(@PathVariable(name="id")Long id,@RequestBody Book book) {
+	@PutMapping("/books/{isbn}")
+	public Book updateBook(@PathVariable(name="isbn")Long isbn,@RequestBody Book book) {
 		
 		Book book_selected= new Book();
 		Book book_updated= new Book();
 		
-		book_selected= bookserviceimpl.BookXID(id);
+		book_selected= bookserviceimpl.BookXID(isbn);
 		
 		book_selected.setTitle(book.getTitle());
 		book_selected.setAuthor(book.getAuthor());
@@ -75,9 +75,9 @@ public class BookController{
 		return book_updated;
 	}
 	
-	@DeleteMapping("/books/{id}")
-	public void deleteBook(@PathVariable(name="id")Long id) {
-		bookserviceimpl.deleteBook(id);
+	@DeleteMapping("/books/{isbn}")
+	public void deleteBook(@PathVariable(name="isbn")Long isbn) {
+		bookserviceimpl.deleteBook(isbn);
 	}
 }
 		
