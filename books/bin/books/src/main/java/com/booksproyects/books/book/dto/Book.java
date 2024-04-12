@@ -18,6 +18,8 @@ public class Book {
 		private String title;
 		@Column(name = "author")
 		private String author;
+		@Column (name = "isbn")
+		private Long isbn;
 		@Temporal(TemporalType.TIMESTAMP)
 		private Date publication_date;
 		
@@ -62,6 +64,14 @@ public class Book {
 		}
 		public void setpublicationDate(Date publicationDate) {
 			this.publication_date = publicationDate;
+		}
+
+		public Long getIsbn() {
+			return isbn;
+		}
+
+		public void setIsbn(Long isbn) {
+			this.isbn = isbn;
 		}
 		
 	
