@@ -15,7 +15,7 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 import org.springframework.validation.FieldError;
 
 
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler{
 
     //controla los errores de los campos
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -74,8 +74,8 @@ return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
         return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body("Tipo de contenido no soportado: " + e.getContentType());
     }
     
- @ExceptionHandler(IOException.class)
- public ResponseEntity<Object> handleIOException (IOException ex){
-     return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body("Tipo de contenido no soportado: " + e.getContentType());
- }
+// @ExceptionHandler(IOException.class)
+// public ResponseEntity<Object> handleIOException (IOException ex){
+//     return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body("Tipo de contenido no soportado: " + e.getContentType());
+// }
 }
