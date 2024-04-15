@@ -7,10 +7,10 @@ import java.util.Date;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="books")//en caso que la tabala sea diferente
+@Table(name="books")
 public class Book {
 	
-	//Atributos de entidad cliente
+	//Atributos de entidad libros
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)//busca ultimo valor e incrementa desde id final de db
 		private Long id;
@@ -21,7 +21,7 @@ public class Book {
 		@Column (name = "isbn")
 		private Long isbn;
 		@Temporal(TemporalType.TIMESTAMP)
-		private Date publication_date;
+		private Date publication_date; //Format YYYY-MM-DD
 		
 		
 		

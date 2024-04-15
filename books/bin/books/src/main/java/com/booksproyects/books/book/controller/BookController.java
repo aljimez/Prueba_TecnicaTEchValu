@@ -47,9 +47,17 @@ public class BookController{
 	}
 	
 		
-		
+	@GetMapping("books/isbn_asc")
+	public List<Book> listAllBooksByAsc(){
+		return bookserviceimpl.listAllBooksISBNSortedAsc();
+	}
 		
 	
+	@GetMapping("books/isbn_desc")
+	public List<Book> listAllBooksByDesc(){
+		return bookserviceimpl.listAllBooksISBNSortedDesc();
+	}
+		
 	
 	@PostMapping("/books")
 	public Book saveBook(@RequestBody Book book) {

@@ -3,6 +3,7 @@ package com.booksproyects.books.book.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.booksproyects.books.book.dao.IBookDAO;
@@ -52,6 +53,16 @@ public class BookServiceImpl implements IBookService{
 	public List<Book> listBookByTitle(String title) {
 		
 		return iBookDAO.findByTitle(title);
+	}
+
+	public List<Book> listAllBooksISBNSortedAsc() {
+		// TODO Auto-generated method stub
+		return iBookDAO.findAll(Sort.by("isbn").ascending());
+	}
+
+	public List<Book> listAllBooksISBNSortedDesc() {
+		// TODO Auto-generated method stub
+		return iBookDAO.findAll(Sort.by("isbn").descending());
 	}
 
 }
