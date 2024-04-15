@@ -49,13 +49,23 @@ public class BookController{
 		
 	@GetMapping("books/isbn_asc")
 	public List<Book> listAllBooksByAsc(){
+		try {
 		return bookserviceimpl.listAllBooksISBNSortedAsc();
+		}catch(DataAccessException exDt) {
+            throw  new BadRequestException(exDt.getMessage());
+
+		}
 	}
 		
 	
 	@GetMapping("books/isbn_desc")
 	public List<Book> listAllBooksByDesc(){
+		try {
 		return bookserviceimpl.listAllBooksISBNSortedDesc();
+		}catch(DataAccessException exDt) {
+            throw  new BadRequestException(exDt.getMessage());
+
+		}
 	}
 		
 	
@@ -94,7 +104,6 @@ public class BookController{
 		book_selected= bookserviceimpl.BookXID(id);
 		book_selected.setId(book.getId());
 		book_selected.setTitle(book.getTitle());
-		book_selected.setAuthor(book.getAuthor());
 		book_selected.setIsbn(book.getIsbn());
 		book_selected.setPublication_date(book.getPublication_date());
 		

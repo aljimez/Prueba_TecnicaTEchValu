@@ -1,8 +1,7 @@
 package com.booksproyects.books.book.dto;
 
 import java.util.Date;
-
-
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -13,16 +12,16 @@ public class Book {
 	//Atributos de entidad libros
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)//busca ultimo valor e incrementa desde id final de db
+		
 		private Long id;
 		@Column(name = "title")
 		private String title;
-		@Column(name = "author")
-		private String author;
 		@Column (name = "isbn")
 		private Long isbn;
 		@Temporal(TemporalType.TIMESTAMP)
 		private Date publication_date; //Format YYYY-MM-DD
 		
+	
 		
 		
 		public Book(Long isbn, String title, String author, Date publication_date, Long id) {
@@ -30,7 +29,6 @@ public class Book {
 			this.id = id;
 			this.isbn = isbn;
 			this.title = title;
-			this.author = author;
 			this.publication_date = publication_date;
 		}
 		
@@ -40,7 +38,7 @@ public class Book {
 
 		@Override
 		public String toString() {
-			return "Books [id=" + isbn + ", title=" + title + ", address=" + author + ", publication_date=" + publication_date + "]";
+			return "Books [id=" + isbn + ", title=" + title  + ", publication_date=" + publication_date + "]";
 		}
 		public Long getIsbn() {
 			return isbn;
@@ -64,12 +62,7 @@ public class Book {
 		public void setTitle(String title) {
 			this.title = title;
 		}
-		public String getAuthor() {
-			return author;
-		}
-		public void setAuthor(String author) {
-			this.author = author;
-		}
+	
 
 		public Date getPublication_date() {
 			return publication_date;
@@ -79,6 +72,10 @@ public class Book {
 			this.publication_date = publication_date;
 		}
 	
-		
+	
+
+
+
+
 	
 }
