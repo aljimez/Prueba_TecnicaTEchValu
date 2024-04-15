@@ -1,14 +1,17 @@
 package com.booksproyects.books.book.exception;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 import org.springframework.validation.FieldError;
 
 
@@ -33,15 +36,21 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ExceptionDetails> handlerResourceNotFoundException(ResourceNotFoundException exception,
                                                                         WebRequest webRequest) {
-    	ExceptionDetails exceptionDetails = new ExceptionDetails(exception.getMessage(), webRequest.getDescription(false));
+    	ExceptionDetails exceptionDetails = new ExceptionDetails("Not found Error: "+exception.getMessage(), webRequest.getDescription(false));
         return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
     }
+  @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ExceptionDetails> NoResourceFoundException(ResourceNotFoundException exception,
+            WebRequest webRequest) {
+ExceptionDetails exceptionDetails = new ExceptionDetails("Not Found Error: "+exception.getMessage(), webRequest.getDescription(false));
+return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
+}
 
     //controla los errores globales de los path en 404
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<ExceptionDetails> handlerNoHandlerFoundException(NoHandlerFoundException  exception,
                                                                         WebRequest webRequest) {
-    	ExceptionDetails exceptionDetails = new ExceptionDetails(exception.getMessage(), webRequest.getDescription(false));
+    	ExceptionDetails exceptionDetails = new ExceptionDetails("Not Found Error "+exception.getMessage(), webRequest.getDescription(false));
         return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
     }
 
@@ -49,7 +58,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ExceptionDetails> handlerBadRequestException(BadRequestException exception,
                                                                         WebRequest webRequest) {
-    	ExceptionDetails exceptionDetails = new ExceptionDetails(exception.getMessage(), webRequest.getDescription(false));
+    	ExceptionDetails exceptionDetails = new ExceptionDetails("Bad Request Error "+exception.getMessage(), webRequest.getDescription(false));
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
 
@@ -57,8 +66,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionDetails> handlerException(Exception exception,
                                                                   WebRequest webRequest) {
-    	ExceptionDetails exceptionDetails = new ExceptionDetails(exception.getMessage(), webRequest.getDescription(false));
+    	ExceptionDetails exceptionDetails = new ExceptionDetails("Internal Server Error "+exception.getMessage(), webRequest.getDescription(false));
         return new ResponseEntity<>(exceptionDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    public ResponseEntity<String> handleMediaTypeNotSupported(HttpMediaTypeNotSupportedException e) {
+        return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body("Tipo de contenido no soportado: " + e.getContentType());
+    }
+    
+ @ExceptionHandler(IOException.class)
+ public ResponseEntity<Object> handleIOException (IOException ex){
+     return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body("Tipo de contenido no soportado: " + e.getContentType());
+ }
 }

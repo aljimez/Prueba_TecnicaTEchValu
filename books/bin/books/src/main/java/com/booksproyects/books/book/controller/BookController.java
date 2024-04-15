@@ -23,7 +23,7 @@ import com.booksproyects.books.book.dto.Book;
 import com.booksproyects.books.book.exception.BadRequestException;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(value = "/api")
 public class BookController{
 	
 	@Autowired
@@ -31,11 +31,11 @@ public class BookController{
 	
 	
 	@GetMapping("/books")
-	public List<Book> listBooks(){
+	public  List<Book> listBooks(){
 		return bookserviceimpl.listAllBooks();
 	}
 	
-	//listar Clientes por campo nombre
+	//listar Libro por campo nombre
 	@GetMapping("/books/title/{title}")
 	public List<Book> listBookByTitle(@PathVariable(name="title") String title) {
 		try {
@@ -54,7 +54,6 @@ public class BookController{
 	@PostMapping("/books")
 	public Book saveBook(@RequestBody Book book) {
 		try {
-
 		return bookserviceimpl.saveBook(book);
 		}catch(DataAccessException exDt){
             throw  new BadRequestException(exDt.getMessage());
@@ -63,13 +62,12 @@ public class BookController{
 	}
 	
 	
-	@GetMapping("/books/{isbn}")
-	public Book bookXID(@PathVariable(name="isbn") Long isbn) {
+	@GetMapping("/books/{id}")
+	public Book bookXID(@PathVariable(name="id") Long id) {
 		try {
-
 		Book book_xid = new Book();
 		
-		book_xid=bookserviceimpl.BookXID(isbn);
+		book_xid=bookserviceimpl.BookXID(id);
 		
 		System.out.println("Book XID: "+book_xid);
 		
@@ -80,18 +78,17 @@ public class BookController{
 		}
 	}
 	
-	@PutMapping("/books/{isbn}")
-	public Book updateBook(@PathVariable(name="isbn")Long isbn,@RequestBody Book book) {
+	@PutMapping("/books/{id}")
+	public Book updateBook(@PathVariable(name="id")Long id,@RequestBody Book book) {
 		try {
 		Book book_selected= new Book();
 		Book book_updated= new Book();
-		
-		book_selected= bookserviceimpl.BookXID(isbn);
-		
+		book_selected= bookserviceimpl.BookXID(id);
+		book_selected.setId(book.getId());
 		book_selected.setTitle(book.getTitle());
 		book_selected.setAuthor(book.getAuthor());
-		book_selected.setId(book.getId());
-		book_selected.setpublicationDate(book.getpublicationDate());
+		book_selected.setIsbn(book.getIsbn());
+		book_selected.setPublication_date(book.getPublication_date());
 		
 		book_updated = bookserviceimpl.updateBook(book_selected);
 		
@@ -104,10 +101,10 @@ public class BookController{
 		}
 	}
 	
-	@DeleteMapping("/books/{isbn}")
-	public void deleteBook(@PathVariable(name="isbn")Long isbn) {
+	@DeleteMapping("/books/{id}")
+	public void deleteBook(@PathVariable(name="id")Long id) {
 		try {
-		bookserviceimpl.deleteBook(isbn);
+		bookserviceimpl.deleteBook(id);
 		}catch(DataAccessException exDt){
             throw  new BadRequestException(exDt.getMessage());
 

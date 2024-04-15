@@ -25,9 +25,10 @@ public class Book {
 		
 		
 		
-		public Book(Long id, String title, String author, Date publication_date) {
+		public Book(Long isbn, String title, String author, Date publication_date, Long id) {
 			super();
 			this.id = id;
+			this.isbn = isbn;
 			this.title = title;
 			this.author = author;
 			this.publication_date = publication_date;
@@ -39,14 +40,24 @@ public class Book {
 
 		@Override
 		public String toString() {
-			return "Books [id=" + id + ", title=" + title + ", address=" + author + ", publication_date=" + publication_date + "]";
+			return "Books [id=" + isbn + ", title=" + title + ", address=" + author + ", publication_date=" + publication_date + "]";
 		}
+		public Long getIsbn() {
+			return isbn;
+		}
+		public void setIsbn(Long isbn) {
+			this.isbn = isbn;
+			
+		}
+		
 		public Long getId() {
 			return id;
 		}
+
 		public void setId(Long id) {
 			this.id = id;
 		}
+
 		public String getTitle() {
 			return title;
 		}
@@ -59,20 +70,15 @@ public class Book {
 		public void setAuthor(String author) {
 			this.author = author;
 		}
-		public Date getpublicationDate() {
+
+		public Date getPublication_date() {
 			return publication_date;
 		}
-		public void setpublicationDate(Date publicationDate) {
-			this.publication_date = publicationDate;
-		}
 
-		public Long getIsbn() {
-			return isbn;
+		public void setPublication_date(Date publication_date) {
+			this.publication_date = publication_date;
 		}
-
-		public void setIsbn(Long isbn) {
-			this.isbn = isbn;
-		}
+	
 		
 	
 }
