@@ -55,7 +55,7 @@ public class BookController{
 	public Book saveBook(@RequestBody Book book) {
 		try {
 		return bookserviceimpl.saveBook(book);
-		}catch(DataAccessException exDt){
+		}catch(BadRequestException exDt){
             throw  new BadRequestException(exDt.getMessage());
 
 		}

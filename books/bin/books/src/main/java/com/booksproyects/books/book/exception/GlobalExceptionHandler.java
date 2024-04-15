@@ -39,6 +39,7 @@ public class GlobalExceptionHandler{
     	ExceptionDetails exceptionDetails = new ExceptionDetails("Not found Error: "+exception.getMessage(), webRequest.getDescription(false));
         return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
     }
+    //Controla los errores al no encontrar algunos de los datos que se buscan
   @ExceptionHandler(NoResourceFoundException.class)
     public ResponseEntity<ExceptionDetails> NoResourceFoundException(ResourceNotFoundException exception,
             WebRequest webRequest) {
@@ -69,13 +70,14 @@ return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
     	ExceptionDetails exceptionDetails = new ExceptionDetails("Internal Server Error "+exception.getMessage(), webRequest.getDescription(false));
         return new ResponseEntity<>(exceptionDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    //Controla los errores relacionados con el tipo de datos introducidos
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public ResponseEntity<String> handleMediaTypeNotSupported(HttpMediaTypeNotSupportedException e) {
         return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body("Tipo de contenido no soportado: " + e.getContentType());
     }
-    
-// @ExceptionHandler(IOException.class)
-// public ResponseEntity<Object> handleIOException (IOException ex){
-//     return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body("Tipo de contenido no soportado: " + e.getContentType());
-// }
+    //Controla los errores de entrada y salida de datos
+ @ExceptionHandler(IOException.class)
+ public ResponseEntity<Object> handleIOException (IOException e){
+     return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body("Problema en operación de entrada y salida");
+ }
 }
