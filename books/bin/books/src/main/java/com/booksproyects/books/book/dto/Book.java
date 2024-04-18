@@ -12,21 +12,24 @@ public class Book {
 	//Atributos de entidad libros
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)//busca ultimo valor e incrementa desde id final de db
-		
 		private Long id;
 		@Column(name = "title")
 		private String title;
+		@Column (name = "auth")
+		private Auth auth;
 		@Column (name = "isbn")
 		private Long isbn;
 		@Temporal(TemporalType.TIMESTAMP)
 		private Date publication_date; //Format YYYY-MM-DD
+		@ManyToOne
+		@JoinColumn(name = "author_id")
+		private Auth author;
 		
-	
 		
-		
-		public Book(Long isbn, String title, String author, Date publication_date, Long id) {
+		public Book(Long isbn, String title, String author, Date publication_date, Long id,Auth auth) {
 			super();
 			this.id = id;
+			this.auth = auth;
 			this.isbn = isbn;
 			this.title = title;
 			this.publication_date = publication_date;
